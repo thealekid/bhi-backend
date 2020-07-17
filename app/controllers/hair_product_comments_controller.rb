@@ -1,0 +1,2 @@
+class HairProductCommentsController < ApplicationController
+end
