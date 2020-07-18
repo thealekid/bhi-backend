@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
-
+    
     def login
         user =  User.find_by(username: params[:username])
-        generate_token({id: user.id})
         if user && user.authenticate(params[:password])
             render json: {user: user, token: generate_token({id: user.id})}
         else
@@ -16,6 +15,15 @@ class UsersController < ApplicationController
             render json: {user: user, token: generate_token({id: user.id})}, status: :created
         else
             render json: {message: "Signup error"}, status: :unauthorized
+        end
+    end
+
+    def validate
+        user = get_user
+        if user
+            render json: {user: user, token: generate_token({id: user.id})}
+        else
+            render json: {message: "validate error"}, status: :unauthorized
         end
     end
 
