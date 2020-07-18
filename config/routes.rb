@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :hair_products
   resources :hair_product_comments
 
+  post "/login", to: "users#login"
+  post "/signup", to: "users#signup"
+
 end
 
 
