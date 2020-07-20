@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post "/login", to: "users#login"
   post "/signup", to: "users#signup"
   get "/validate", to: "users#validate"
+  post "/shopsearch", to: "shops#search"
 
 end
 
