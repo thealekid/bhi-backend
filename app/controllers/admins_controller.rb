@@ -6,7 +6,7 @@ class AdminsController < ApplicationController
         if admin && admin.authenticate(params[:password])
             render json: {admin: {id: admin.id, username: admin.username}, token: generate_token({id: admin.id, access: "admin"})}
         else
-            render json: {message: "login error"}, status: :unauthorized
+            render json: {message: "You are not an Admin"}, status: :unauthorized
         end
     end
 

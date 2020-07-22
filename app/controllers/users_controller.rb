@@ -5,7 +5,7 @@ class UsersController < ApplicationController
         if user && user.authenticate(params[:password])
             render json: {user: {id: user.id, username: user.username}, token: generate_token({id: user.id, access: "user"})}
         else
-            render json: {message: "login error"}, status: :unauthorized
+            render json: {message: "Username & Password do not match"}, status: :unauthorized
         end
     end
 
