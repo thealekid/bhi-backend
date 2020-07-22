@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     def login
         user =  User.find_by(username: params[:username])
         if user && user.authenticate(params[:password])
-            render json: {user: {id: user.id, username: user.username}, token: generate_token({id: user.id})}
+            render json: {user: {id: user.id, username: user.username}, token: generate_token({id: user.id, access: "user"})}
         else
             render json: {message: "login error"}, status: :unauthorized
         end
@@ -12,19 +12,28 @@ class UsersController < ApplicationController
     def signup
         user = User.create(create_user_params)
         if(user.valid?)
-            render json: {user: {id: user.id, username: user.username}, token: generate_token({id: user.id})}, status: :created
+            render json: {user: {id: user.id, username: user.username}, token: generate_token({id: user.id, access: "user"})}, status: :created
         else
             render json: {message: "Signup error"}, status: :unauthorized
         end
     end
 
     def validate
+        # byebug
         user = get_user
-        if user
-            render json: {user: {id: user.id, username: user.username}, token: generate_token({id: user.id})}
+        if user.class == User
+            render json: {user: {id: user.id, username: user.username}, type: "user", token: generate_token({id: user.id, access: "user"})}
+        elsif user.class == Admin
+            render json: {admin: {id: user.id, username: user.username}, type: "admin", token: generate_token({id: user.id, access: "admin"})}
         else
             render json: {message: "validate error"}, status: :unauthorized
         end
+    end
+
+    def approved
+        user = User.find_by(id: params[:id])
+        user.update(approved: true)
+        render json: {approved: user.approved}
     end
 
   

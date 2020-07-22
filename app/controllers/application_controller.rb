@@ -7,6 +7,7 @@ class ApplicationController < ActionController::API
     
 
     def generate_token(data)
+        # byebug
         data[:time] = Time.now.to_i
         JWT.encode(data, secret)
     end
@@ -21,8 +22,19 @@ class ApplicationController < ActionController::API
     end
 
     def get_user
-        id = decode_token["id"]
-        User.find_by(id: id)
+        token = decode_token
+        if(token["access"] == "user")
+            User.find_by(id: token["id"])
+        elsif(token["access"] == "admin")
+            Admin.find_by(id: token["id"])
+        end
+    end
+
+    def get_admin
+        token = decode_token
+        if(token["access"] == "admin")
+            Admin.find_by(id: token["id"])
+        end
     end
 
     def authorised
