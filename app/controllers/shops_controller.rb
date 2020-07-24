@@ -14,9 +14,27 @@ class ShopsController < ApplicationController
         end
     end
 
+    def create
+        # byebug
+        if (get_user)
+            shop = Shop.create(create_shop_params)
+            render json: shop
+        else
+            render json: {message: "You cannot create a shop without an account!"}, status: :unauthorized
+        end
+    
+    end
+
     def search
         shops = Shop.where("postcode ilike ?", "%#{params[:search]}%")
         render json: shops
+    end
+
+
+    private
+
+    def create_shop_params
+        params.require(:shop).permit(:name, :image_url, :phone_number, :opening_hours, :address, :town, :county, :country, :postcode, :service, )
     end
     
 end

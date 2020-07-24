@@ -33,6 +33,11 @@ class AdminsController < ApplicationController
         render json: users
     end
 
+    # def unapproved_shops
+    #     shops = Shop.where(approved: false)
+    #     render json: shops
+    # end
+
     private
 
     def create_admin_params

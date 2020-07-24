@@ -5,7 +5,7 @@ class UsersController < ApplicationController
         if user && user.authenticate(params[:password])
             render json: {user: {id: user.id, username: user.username}, token: generate_token({id: user.id, access: "user"})}
         else
-            render json: {message: "Username & Password do not match"}, status: :unauthorized
+            render json: {message: "Username & Password do not match", error: user.errors.full_messages}, status: :unauthorized
         end
     end
 
@@ -14,12 +14,11 @@ class UsersController < ApplicationController
         if(user.valid?)
             render json: {user: {id: user.id, username: user.username}, token: generate_token({id: user.id, access: "user"})}, status: :created
         else
-            render json: {message: "Signup error"}, status: :unauthorized
+            render json: {message: "Signup error", error: user.errors.full_messages}, status: :unauthorized
         end
     end
 
     def validate
-        # byebug
         user = get_user
         if user.class == User
             render json: {user: {id: user.id, username: user.username}, type: "user", token: generate_token({id: user.id, access: "user"})}
