@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :users
   resources :shops
   resources :shop_comments
-  resources :hair_products
-  resources :hair_product_comments
+  # resources :hair_products
+  # # resources :hair_product_comments
 
 
   post "/login", to: "users#login"
