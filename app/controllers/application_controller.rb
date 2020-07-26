@@ -27,6 +27,7 @@ class ApplicationController < ActionController::API
             User.find_by(id: token["id"])
         elsif(token["access"] == "admin")
             Admin.find_by(id: token["id"])
+        else nil
         end
     end
 
@@ -34,6 +35,7 @@ class ApplicationController < ActionController::API
         token = decode_token
         if(token["access"] == "admin")
             Admin.find_by(id: token["id"])
+        else nil
         end
     end
 

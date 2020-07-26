@@ -15,8 +15,9 @@ Rails.application.routes.draw do
   post "/adminlogin", to: "admins#login"
   post "/adminsignup", to: "admins#signup"
   get "/adminvalidate", to: "admins#validate"
-  get "/unapproved", to: "admins#unapproved_users"
-  patch "/approved", to: "users#approved"
+  get "/unapproved", to: "admins#unapproved_shops"
+  patch "/approved", to: "shops#approved"
+  delete "/decline", to: "shops#decline"
 
 end
 

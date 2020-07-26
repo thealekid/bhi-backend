@@ -6,7 +6,7 @@ class User < ApplicationRecord
     validates :first_name, :last_name, presence: true
     validates :username, presence: true, uniqueness: { case_sensitive: false }
     validates :email_address, presence: true ,uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
-    validates :password, presence: true, on: :create, 
+    validates :password, presence: true, on: :create
    
 
 end

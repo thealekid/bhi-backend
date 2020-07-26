@@ -28,15 +28,15 @@ class AdminsController < ApplicationController
         end
     end
 
-    def unapproved_users
-        users = User.where(approved: false)
-        render json: users
-    end
-
-    # def unapproved_shops
-    #     shops = Shop.where(approved: false)
-    #     render json: shops
+    # def unapproved_users
+    #     users = User.where(approved: false)
+    #     render json: users
     # end
+
+    def unapproved_shops
+        shops = Shop.where(approved: false)
+        render json: shops
+    end
 
     private
 
