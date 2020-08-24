@@ -4,8 +4,20 @@ Rails.application.routes.draw do
   resources :users
   resources :shops
   resources :shop_comments
-  resources :hair_products
-  resources :hair_product_comments
+  # resources :hair_products
+  # # resources :hair_product_comments
+
+
+  post "/login", to: "users#login"
+  post "/signup", to: "users#signup"
+  get "/validate", to: "users#validate"
+  post "/shopsearch", to: "shops#search"
+  post "/adminlogin", to: "admins#login"
+  post "/adminsignup", to: "admins#signup"
+  get "/adminvalidate", to: "admins#validate"
+  get "/unapproved", to: "admins#unapproved_shops"
+  patch "/approved", to: "shops#approved"
+  delete "/decline", to: "shops#decline"
 
 end
 
